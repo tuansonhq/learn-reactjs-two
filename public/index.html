@@ -1,43 +1,148 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="theme-color" content="#000000" />
-    <meta
-      name="description"
-      content="Web site created using create-react-app"
-    />
-    <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
-    <!--
-      manifest.json provides metadata used when your web app is installed on a
-      user's mobile device or desktop. See https://developers.google.com/web/fundamentals/web-app-manifest/
-    -->
-    <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
-    <!--
-      Notice the use of %PUBLIC_URL% in the tags above.
-      It will be replaced with the URL of the `public` folder during the build.
-      Only files inside the `public` folder can be referenced from the HTML.
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ReactJS</title>
+  <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
+  <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
+  <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
 
-      Unlike "/favicon.ico" or "favicon.ico", "%PUBLIC_URL%/favicon.ico" will
-      work correctly both with client-side routing and a non-root public URL.
-      Learn how to configure a non-root public URL by running `npm run build`.
-    -->
-    <title>React App</title>
-  </head>
-  <body>
-    <noscript>You need to enable JavaScript to run this app.</noscript>
-    <div id="root"></div>
-    <!--
-      This HTML file is a template.
-      If you open it directly in the browser, you will see an empty page.
+</head>
+<body>
+  <!-- <h1>Add React to website</h1> -->
+  <div id="root"></div>
+  <div id="rootBt"></div>
+  <div id="rootBal"></div>
+  <div id="rootBalArr"></div>
+  <div id="rootTwo"></div>
+  
+  <script type="text/babel">
+    //React elements
+    //sử dụng props giống như với attribute của thẻ html
+    // 2 props class, for => className,htmlFor
+    //Phải tuân theo quy ước có sẵn
+    //React components
+    //Sử dụng props giống như đối số cho Component
+    //Tư do đặt tên theo props
+    //Đặt theo camelCase
+    //Có thể bao gồm dấu gạch ngang
+    //Chú ý:
+    //prop key là prop đặc biệt
+    //props cơ bản là đối số của component
+    //props có thể là bất cứ kiểu dữ liệu gì
+    //sử dụng destructuring
 
-      You can add webfonts, meta tags, or analytics to this file.
-      The build step will place the bundled scripts into the <body> tag.
+    //PostItem.js
+    function PostItem({
+      image,
+      title,
+      description,
+      published,
+      callback = () => {},//giá trị default
+    }){
+      
+      if(typeof callback === 'function')
+        callback(Math.random());
+      return (
+        <div className="posts-list">
+          <div className="posts-item">
+            <img className="posts-image" src={ image }
+            alt={ title }/>
+            <h2 className="posts-title">{ title }</h2>
+            <p className="post-desc">{ description }</p>
+            <p className="post-published">{ published }</p>
+          </div>
+        </div>
+      );
+    };
 
-      To begin the development, run `npm start` or `yarn start`.
-      To create a production bundle, use `npm run build` or `yarn build`.
-    -->
-  </body>
+
+
+    //App.js
+    function App(){
+      return (
+        <div id="wrapper">
+          <PostItem
+            title="Shop ngọc rồng"
+            image="https://cdn.upanh.info/storage/upload/images/BANNER-SHOPNGOCRONG-NET.gif"
+            description="Shop bán nick giá rẻ"
+            published="Dành cho trẻ em trên 14 tuổi"
+            callback={(random) => {
+              console.log('random: ', random);
+            }}
+          />
+          <PostItem
+            title="Shop ngọc rồng 1"
+            image="https://cdn.upanh.info/storage/upload/images/BANNER-SHOPNGOCRONG-NET.gif"
+            description="Shop bán nick giá rẻ"
+            published="Dành cho trẻ em trên 14 tuổi"
+          />
+          <PostItem
+            title="Shop ngọc rồng 2"
+            image="https://cdn.upanh.info/storage/upload/images/BANNER-SHOPNGOCRONG-NET.gif"
+            description="Shop bán nick giá rẻ"
+            published="Dành cho trẻ em trên 14 tuổi"
+          />
+        </div>
+      );
+    }
+
+    //index.js
+    const dom = document.getElementById('root');
+    const root = ReactDOM.createRoot(dom);
+    root.render(<App/>);
+
+  </script>
+  <!-- <script type="text/babel">
+
+  //funcition/class
+
+    function Header(){
+      return (
+        <div className="header">New header</div>
+      );
+    }
+
+    class Content extends React.Component{
+      render(){
+        return (
+          <div className="content">New content</div>
+      );
+      }
+    }
+
+    const app = (
+      <div className="wrapper">
+        <Header />
+        <Content />
+        <div className="footer">footer</div>
+      </div>
+    );
+
+    const dom = document.getElementById('root');
+    const root = ReactDOM.createRoot(dom);
+    root.render(app);
+
+    //Chua bt ve nha.
+
+    const appBt = (
+      <div className="posts-list">
+        <div className="posts-item">
+          <img className="posts-image" src="https://cdn.upanh.info/storage/upload/images/BANNER-SHOPNGOCRONG-NET.gif"
+           alt="Shop ngọc rồng"/>
+          <h2 className="posts-title">Shop ngọc rồng</h2>
+          <p className="post-desc">Shop bán nick giá rẻ</p>
+          <p className="post-published">Dành cho trẻ em trên 14 tuổi</p>
+        </div>
+      </div>
+    );
+
+    const domBt = document.getElementById('rootBt');
+    const rootBt = ReactDOM.createRoot(domBt);
+    rootBt.render(appBt);
+  </script> -->
+
+</body>
 </html>
